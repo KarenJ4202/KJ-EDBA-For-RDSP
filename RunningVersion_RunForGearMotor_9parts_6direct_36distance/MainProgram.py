@@ -20,6 +20,7 @@
 import numpy as np
 import copy
 import matplotlib.pyplot as plt
+import time
 
 import Fn0_Bees as Fn0
 import Fn1_GenerateFeasibleSequence as Fn1
@@ -40,6 +41,9 @@ offs->offspring.
 EDBA FULL SITES:
 Selected Sites(Eite sites + Non-elited sites) + Non-selected sites
 '''
+
+'''Time module: Start the program timer.'''
+program_start_time = time.perf_counter()
 
 '''**************************************'''
 '''Load the CAD data from the excel file.'''
@@ -194,6 +198,9 @@ robot_speed = 12
 '''Specify a time scale when calculating direction canges.'''
 time_scale = 2
 
+'''Time module: Start the Algorithm timer.'''
+algo_start_time = time.perf_counter()
+
 '''A list to hold the best TotalCost values.'''
 ba_max_iter = 300
 ba_best_time = np.zeros(ba_max_iter)
@@ -241,7 +248,7 @@ for scout_bee in range(0, ba_scout_bees):
 '''Ascending sort scout-bees by TotalCost as a list.'''
 '''*************************************************'''
 sorted_babees = sorted(ba_bees, key=lambda key: ba_bees[key]['TotalCost'])
-print(sorted_babees)
+# print(sorted_babees)
 
 '''Storing sorted information back to ba_bees as a dictionary.'''
 ba_bees = {key: ba_bees[key] for key in sorted_babees}
@@ -326,7 +333,7 @@ for it in range(0, ba_max_iter):
         else:
             pass
 
-        print(f'For site {elitesite}: ', ba_bees[num_elitesite])
+        # print(f'For site {elitesite}: ', ba_bees[num_elitesite])
 
     '''To each of the Selected(Non-elite) Sites,'''
     for selectedsite in range(ba_elite_site, ba_selected_site):
@@ -405,7 +412,7 @@ for it in range(0, ba_max_iter):
             ba_bees[num_selectedsite]['Distance'] = selected_betterbee['Distance']
             ba_bees[num_selectedsite]['TotalCost'] = selected_betterbee['TotalCost']
 
-        print(f'For site {selectedsite}: ', ba_bees[num_selectedsite])
+        # print(f'For site {selectedsite}: ', ba_bees[num_selectedsite])
 
     '''To each of the Non-selected Sites, assigne one bee to one site.'''
     for normalsite in range(ba_selected_site, ba_scout_bees):
@@ -440,11 +447,11 @@ for it in range(0, ba_max_iter):
         ba_bees[num_normalsite]['Distance'] = babybee_distance
         ba_bees[num_normalsite]['TotalCost'] = babybee_totalcost
 
-        print(f'For site {normalsite}: ', ba_bees[num_normalsite])
+        # print(f'For site {normalsite}: ', ba_bees[num_normalsite])
 
     '''Again, Ascending sort scout-bees by TotalCost as a list.'''
     sorted_babees = sorted(ba_bees, key=lambda key: ba_bees[key]['TotalCost'])
-    print(sorted_babees)
+    # print(sorted_babees)
 
     '''Storing sorted information back to ba_bees as a dictionary.'''
     ba_bees = {key: ba_bees[key] for key in sorted_babees}
@@ -453,24 +460,32 @@ for it in range(0, ba_max_iter):
 
     '''Storing the best TotalCost of each iteration.'''
     ba_thebestbee = copy.deepcopy(ba_bees[sorted_babees[0]])
-    # print(f'The best bee in iteration {it} is: ', ba_thebestbee)
+    print(f'The best bee in iteration {it} is: ', ba_thebestbee)
 
     ba_best_time_iter = ba_thebestbee['TotalCost']
-    # print(f'The best TotalCost in iteration {it} is: ', ba_best_time_iter, '\n')
+    print(f'The best TotalCost in iteration {it} is: ', ba_best_time_iter, '\n')
     ba_best_time[it] = ba_best_time_iter
 
+'''Time module: End the timer.'''
+end_time = time.perf_counter()
 
-# print("FINAL ascending result by order of {ScoutBeeNumber: TotalCost, }:")
-# print({key: ba_bees[key]['TotalCost'] for key in sorted_babees}, '\n')
-# print('FINAL best bee is', ba_thebestbee)
-# print(ba_best_time)
+'''Time module: Calculate the running time'''
+program_running_time = end_time - program_start_time
+algo_running_time = end_time - algo_start_time
+
+'''Time module: Print the running time in seconds'''
+print(f"Program running time: {program_running_time:.4f} seconds")
+print(f"Algorithm running time: {algo_running_time:.4f} seconds")
 
 '''Draw result figures.'''
 x = range(0, ba_max_iter)
 y = ba_best_time
 plt.xlabel('Iteration')
-plt.ylabel('Best TotalCost')
-plt.title('EDBA_Python_RunForGearMotor_9parts_6Directions_36DistanceMatrix')
+plt.ylabel('The Best TotalCost')
+plt.title('EDBA_Python_GearMotor9parts\n')
 
 fig = plt.plot(x, y)
+plt.grid(True, alpha=0.5, linestyle='dotted')
 plt.show()
+
+exit()
