@@ -2,11 +2,11 @@
 -*- coding: utf-8 -*-
 @Time   :   17/01/2023 19:59
 @Author :   KarenJ
-@Note   :   This function is to create scout-bees with information storing slots.
+@Note   :   This function is to create (scout-bees with empty information slots.
 """
 
 import Fn2_MatchDisassemblyTool as Fn2
-import Fn3_PenaltyAccumulations as Fn3
+import Fn3_Accumulations as Fn3
 import Fn4_PerformBeeSwappingDance as Fn4
 import Fn5_CheckFeasibility as Fn5
 

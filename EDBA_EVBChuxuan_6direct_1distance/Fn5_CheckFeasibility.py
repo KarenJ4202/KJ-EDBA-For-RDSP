@@ -3,8 +3,8 @@
 @Time   :   21/02/2023 17:15
 @Author :   KarenJ
 @Note   :   This function is to check the feasibility of generated sequence and direction.
-            If the sequence is a feasible one, keep it;
-            if no, eluminate it and jump back to main loop, re-generate.
+            If the results work, keep process;
+            if no, jump out this function back to main loop, re-generate a group of new.
 """
 
 import numpy as np

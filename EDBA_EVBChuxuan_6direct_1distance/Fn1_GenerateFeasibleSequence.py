@@ -2,8 +2,8 @@
 -*- coding: utf-8 -*-
 @Time    : 05/12/2022 18:10
 @Author :   KarenJ
-@Note   :   This function is to generate a feasible disassembly sequence
-            and its corresponding disassembly direction.
+@Note   :   This function is to find a feasible disassembly sequence
+            and the corresponding disassembly direction when it is called in the main program.
 """
 
 

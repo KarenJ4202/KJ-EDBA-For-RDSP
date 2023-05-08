@@ -2,8 +2,8 @@
 -*- coding: utf-8 -*-
 @Time   :   12/02/2023 17:25
 @Author :   KarenJ
-@Note   :   This function is to perform Bees Algorithm local search strategies:
-            swap (type0), insertion(type1) and mutation(type2).
+@Note   :   This function is to perform Bees Algorithm local search strategies.
+            Inlcuding: swap (type0), insertion(type1, TBC) and mutation(type2, TBC).
 """
 import copy
 
@@ -17,6 +17,7 @@ def local_search(sequence, direction, cad_num):
     num = cad_num
 
     def type0_swap():
+
         rand = np.random.randint(num, size=2)
 
         '''Randomly pick two positions from the input sequence.'''
@@ -42,6 +43,8 @@ def local_search(sequence, direction, cad_num):
         return new_sequence, new_direction
 
     def type1_insertion():
+
+        # rand = np.random.randint(num, size=2)
         rand = random.sample(range(num), 2)
 
         new_sequence = seq
@@ -73,31 +76,24 @@ def local_search(sequence, direction, cad_num):
         return new_sequence, new_direction
 
     def type2_mutation():
-        rand = random.sample(range(num), 1)
-
-        new_sequence = seq
-        new_direction = direct
-
-        if direct[rand] == np.any((0, 2, 4)):
-            direct[rand] += 1
-        elif direct[rand] == np.any((1, 3, 5)):
-            direct[rand] -= 1
+        new_sequence = None
+        new_direction = None
 
         return new_sequence, new_direction
 
-    rand_type = random.randint(0, 2)
-    # rand_type = 2
+    # rand_type = 1
+    rand_type = random.randint(0, 1)
     if rand_type == 0:
         # print("Swapping Strategy: ")
         [offs_sequence, offs_direction] = type0_swap()
         return offs_sequence, offs_direction
 
-    elif rand_type == 1:
+    if rand_type == 1:
         # print("Insertion Strategy: ")
         [offs_sequence, offs_direction] = type1_insertion()
         return offs_sequence, offs_direction
 
-    elif rand_type == 2:
+    if rand_type == 2:
         # print("Mutation Strategy: ")
         [offs_sequence, offs_direction] = type2_mutation()
         return offs_sequence, offs_direction

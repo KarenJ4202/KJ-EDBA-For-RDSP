@@ -2,15 +2,15 @@
 -*- coding: utf-8 -*-
 @Time   :   05/01/2023 12:47
 @Author :   KarenJ
-@Note   :   This funciton is to calculate the accumulations for the fitness function.
-            -- The content of accumulation:
+@Note   :   This funciton is to calculate the accumulations for the fitness calculation.
+            -- The accumulation content:
                     delay by direction changes,
                     delay by tool changes,
-                    moving distance of robot end-effector.
+                    movements by robot end-effector's travel.
 """
 
 
-def penalty_accumulating(penalty_direction, penalty_tool, distance_nn, sequence, direction, tool, cad_num):
+def penalty_accumulating(distance_data, penalty_direction, penalty_tool, sequence, direction, tool, cad_num):
     value_penalty_direction = 0
     value_penalty_tool = 0
     value_distance = 0
@@ -19,10 +19,7 @@ def penalty_accumulating(penalty_direction, penalty_tool, distance_nn, sequence,
         n = i + 1
         value_penalty_direction += accumulate_penalty(penalty_direction, direction[m], direction[n])
         value_penalty_tool += accumulate_penalty(penalty_tool, tool[m]-1, tool[n]-1)
-        value_distance += accumulate_penalty(distance_nn[direction[m]][direction[n]],
-                                             sequence[m],
-                                             sequence[n])
-
+        value_distance += accumulate_penalty(distance_data, sequence[m], sequence[n])
     return value_penalty_direction, value_penalty_tool, value_distance
 
 
