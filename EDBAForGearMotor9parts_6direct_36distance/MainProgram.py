@@ -202,13 +202,13 @@ time_scale = 2
 algo_start_time = time.perf_counter()
 
 '''A list to hold the best TotalCost values.'''
-ba_max_iter = 2000
+ba_max_iter = 800
 ba_best_time = np.zeros(ba_max_iter)
 
 '''**********************************'''
 '''Specify Bees Algorithm parameters.'''
 '''**********************************'''
-ba_scout_bees = 40
+ba_scout_bees = 100
 ba_selected_site = 4
 ba_elite_site = 1
 ba_selected_bees = 1
@@ -482,7 +482,7 @@ x = range(0, ba_max_iter)
 y = ba_best_time
 plt.xlabel('Iteration')
 plt.ylabel('The Best TotalCost')
-plt.title('EDBA_Python_GearMotor9parts_Excution30.5' + '\n' +
+plt.title('EDBA_Python_GearMotor9parts_Excution24.17' + '\n' +
           f'Parameter: {ba_scout_bees, ba_selected_site, ba_elite_site, ba_selected_bees, ba_elite_bees, ba_max_iter}')
 
 fig = plt.plot(x, y)
